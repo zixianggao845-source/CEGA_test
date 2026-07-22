@@ -24,6 +24,22 @@ Use these files inside a PETDet checkout. The evaluation script expects to be
 run from a PETDet-style repository that contains `tools/test.py`, `mmrotate/`,
 and the base configs referenced by the HRSC config.
 
+## Reproduce CEGA
+
+From the PETDet root:
+
+```bash
+export HRSC_ROOT=/path/to/hrsc
+export CHECKPOINT="$PWD/work_dirs/CEGA_hrsc.pth"
+bash tools/reproduce_CEGA_hrsc.sh
+```
+
+The evaluation output is written to:
+
+```text
+work_dirs/reproduce_CEGA_hrsc/
+```
+
 For details, see:
 
 ```text
