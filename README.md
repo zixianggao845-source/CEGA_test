@@ -1,16 +1,15 @@
 # CEGA_test
 
-This repository publishes the HRSC2016 CEGA checkpoint and the training /
-evaluation recipe used to reproduce it in PETDet.
+This repository publishes the HRSC2016 CEGA checkpoint and the minimum files
+needed to evaluate it in PETDet.
 
 ## Files
 
 - `work_dirs/CEGA_hrsc.pth`: HRSC2016 checkpoint, stored with Git LFS.
-- `docs/reproduce_epoch69_hrsc.md`: environment, dataset layout, evaluation,
-  and retraining steps.
-- `tools/reproduce_epoch69_hrsc.sh`: helper script for evaluation or training.
-- `experiments/ablation/retrain_hrsc908_from_log.py`: reference experiment
-  config.
+- `docs/reproduce_CEGA_hrsc.md`: environment, dataset layout, and evaluation
+  steps.
+- `tools/reproduce_CEGA_hrsc.sh`: helper script for evaluation.
+- `experiments/ablation/cega_hrsc_config.py`: reference experiment config.
 - `configs/oriented_rcnn/transformer_strip_oriented_rcnn_re50_refpn_3x_hrsc_le90.py`:
   inherited HRSC model config used by the experiment config.
 
@@ -23,14 +22,14 @@ git lfs install
 git clone https://github.com/zixianggao845-source/CEGA_test.git
 ```
 
-Use these files inside a PETDet checkout. The reproduction script expects to be
-run from a PETDet-style repository that contains `tools/train.py`,
-`tools/test.py`, `mmrotate/`, and the base configs referenced by the HRSC config.
+Use these files inside a PETDet checkout. The evaluation script expects to be
+run from a PETDet-style repository that contains `tools/test.py`, `mmrotate/`,
+and the base configs referenced by the HRSC config.
 
 For details, see:
 
 ```text
-docs/reproduce_epoch69_hrsc.md
+docs/reproduce_CEGA_hrsc.md
 ```
 
 Checkpoint SHA256:
