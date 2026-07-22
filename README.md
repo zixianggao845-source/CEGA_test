@@ -10,8 +10,6 @@ needed to evaluate it in PETDet.
   steps.
 - `tools/reproduce_CEGA_hrsc.sh`: helper script for evaluation.
 - `experiments/ablation/cega_hrsc_config.py`: reference experiment config.
-- `configs/oriented_rcnn/transformer_strip_oriented_rcnn_re50_refpn_3x_hrsc_le90.py`:
-  inherited HRSC model config used by the experiment config.
 
 ## Usage
 
