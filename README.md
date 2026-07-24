@@ -36,7 +36,7 @@ bash tools/CEGA_HRSC_test.sh
 
 ### 2.2 DOTA v1.0 Test
 
-Expected split DOTA directory layout:
+Expected split DOTA :
 
 ```text
 DOTA_ROOT/
