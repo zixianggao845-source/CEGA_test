@@ -15,15 +15,6 @@ mmdet == 2.28.2
 mmrotate == 0.3.2
 ```
 
-Clone this repository with Git LFS enabled:
-
-```bash
-git lfs install
-git clone https://github.com/zixianggao845-source/CEGA_test.git
-```
-
-Run the commands from a PETDet-style project root that contains `tools/test.py`,
-`tools/train.py`, `mmrotate/`, `configs/`, and `experiments/`.
 
 ## 2. Test Experiments
 
