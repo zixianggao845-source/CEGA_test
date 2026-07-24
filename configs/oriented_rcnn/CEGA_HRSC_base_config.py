@@ -12,7 +12,7 @@ model = dict(
         num_stages=4,
         out_indices=(0, 1, 2, 3),
         frozen_stages=1,
-        transformer_stages=(2, 3),  # 在stage3和stage4添加Transformer
+        transformer_stages=(2, 3),  # Add Transformer to stages 3 and 4.
         transformer_cfg=dict(num_heads=8, mlp_ratio=4., dropout=0.1),
         norm_cfg=dict(type='BN', requires_grad=True),
         norm_eval=True,
@@ -163,4 +163,3 @@ optimizer = dict(
     weight_decay=0.05)
 
 evaluation = dict(interval=3, metric='mAP')
-

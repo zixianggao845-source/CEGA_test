@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Evaluate work_dirs/strip_rcnn_s_fpn_1x_dota_le90/CEGA_DOTA.pth.
+# Evaluate work_dirs/CEGA_DOTA/CEGA_DOTA.pth.
 # Required environment variable: DOTA_ROOT
 # Optional: CHECKPOINT, OUT_DIR, PYTHON
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CONFIG="${ROOT}/configs/strip_rcnn/cega_dota_config.py"
+CONFIG="${ROOT}/configs/strip_rcnn/CEGA_DOTA_config.py"
 DOTA_ROOT="${DOTA_ROOT:?Set DOTA_ROOT to the split DOTA dataset root}"
-CHECKPOINT="${CHECKPOINT:-${ROOT}/work_dirs/strip_rcnn_s_fpn_1x_dota_le90/CEGA_DOTA.pth}"
-OUT_DIR="${OUT_DIR:-${ROOT}/work_dirs/reproduce_CEGA_DOTA}"
+CHECKPOINT="${CHECKPOINT:-${ROOT}/work_dirs/CEGA_DOTA/CEGA_DOTA.pth}"
+OUT_DIR="${OUT_DIR:-${ROOT}/work_dirs/CEGA_DOTA_test}"
 PYTHON="${PYTHON:-python}"
 MODE="${1:-val}"
 

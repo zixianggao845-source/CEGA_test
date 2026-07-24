@@ -1,0 +1,126 @@
+# CEGA DOTA Experiment
+
+This document describes the CEGA DOTA v1.0 test and training experiments.
+
+## 1. Environment
+
+Use the PETDet environment described in the PETDet README. The released
+checkpoint was produced with:
+
+```text
+python == 3.10.16
+torch == 1.13.1
+cuda == 11.7
+mmcv == 1.7.1
+mmdet == 2.28.2
+mmrotate == 0.3.2+
+```
+
+Expected split DOTA directory layout:
+
+```text
+DOTA_ROOT/
+  train/
+    annfiles/
+    images/
+  val/
+    annfiles/
+    images/
+  trainval/
+    annfiles/
+    images/
+  test/
+    images/
+```
+
+## 2. Test Experiment
+
+The DOTA test experiment loads:
+
+```text
+work_dirs/CEGA_DOTA/CEGA_DOTA.pth
+```
+
+The test config in this repository is:
+
+```text
+configs/strip_rcnn/CEGA_DOTA_config.py
+```
+
+Run validation mAP from the PETDet root:
+
+```bash
+export DOTA_ROOT=/path/to/split_1024_dota1_0
+export CHECKPOINT="$PWD/work_dirs/CEGA_DOTA/CEGA_DOTA.pth"
+bash tools/CEGA_DOTA_test.sh val
+```
+
+Generate DOTA Task1 submission files:
+
+```bash
+export DOTA_ROOT=/path/to/split_1024_dota1_0
+export CHECKPOINT="$PWD/work_dirs/CEGA_DOTA/CEGA_DOTA.pth"
+bash tools/CEGA_DOTA_test.sh submit
+```
+
+The output is written to:
+
+```text
+work_dirs/CEGA_DOTA_test/
+```
+
+The checkpoint metadata records:
+
+| Item | Value |
+|---|---|
+| Model | `StripRCNN` |
+| Backbone | `StripNet-S` |
+| Neck | `FPN` |
+| RPN | `OrientedRPNHead` |
+| RoI head | `StripHead` |
+| Classes | DOTA v1.0 15 classes |
+| Angle version | `le90` |
+
+## 3. Training Experiment
+
+The training experiment uses the original PETDet config file:
+
+```text
+PETDet/experiments/ablation/serial_rot_scale_aclrpn_striphead_dota.py
+```
+
+Main training settings:
+
+| Setting | Value |
+|---|---|
+| Backbone branches | `ReResNet-50` and `ScaleReResNet-18` |
+| Fusion | `CEGAParallelBranchFusion` |
+| RPN | `ACLRPNHead` |
+| Head | `StripHead` |
+| Optimizer | `AdamW` |
+| Learning rate | `0.0005` |
+| Epochs | `12` |
+| Seed | `332845056` |
+
+Run from the PETDet root:
+
+```bash
+export DOTA_ROOT=/path/to/dota_group_split_3407
+python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_dota.py \
+  --seed 332845056 \
+  --cfg-options \
+    data.train.ann_file="$DOTA_ROOT/train/annfiles/" \
+    data.train.img_prefix="$DOTA_ROOT/train/images/" \
+    data.val.ann_file="$DOTA_ROOT/val/annfiles/" \
+    data.val.img_prefix="$DOTA_ROOT/val/images/" \
+    data.test.ann_file="$DOTA_ROOT/val/annfiles/" \
+    data.test.img_prefix="$DOTA_ROOT/val/images/"
+```
+
+The PETDet config writes training output to:
+
+```text
+work_dirs/cega_parallel_aclrpn_striphead_dota/
+```
+
+Do not upload DOTA images or annotations to this repository.

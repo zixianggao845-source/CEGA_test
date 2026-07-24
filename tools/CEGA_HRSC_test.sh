@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Evaluate work_dirs/CEGA_hrsc.pth.
+# Evaluate work_dirs/CEGA_HRSC.pth.
 # Required environment variable: HRSC_ROOT
 # Optional: CHECKPOINT, OUT_DIR
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CONFIG="${ROOT}/experiments/ablation/cega_hrsc_config.py"
+CONFIG="${ROOT}/experiments/ablation/CEGA_HRSC_config.py"
 HRSC_ROOT="${HRSC_ROOT:?Set HRSC_ROOT to the HRSC dataset root}"
-CHECKPOINT="${CHECKPOINT:-${ROOT}/work_dirs/CEGA_hrsc.pth}"
-OUT_DIR="${OUT_DIR:-${ROOT}/work_dirs/reproduce_CEGA_hrsc}"
+CHECKPOINT="${CHECKPOINT:-${ROOT}/work_dirs/CEGA_HRSC.pth}"
+OUT_DIR="${OUT_DIR:-${ROOT}/work_dirs/CEGA_HRSC_test}"
 PYTHON="${PYTHON:-python}"
 
 COMMON_CFG=(
@@ -33,6 +33,6 @@ fi
 mkdir -p "${OUT_DIR}"
 "${PYTHON}" tools/test.py "${CONFIG}" "${CHECKPOINT}" \
     --work-dir "${OUT_DIR}" \
-    --out "${OUT_DIR}/CEGA_hrsc_results.pkl" \
+    --out "${OUT_DIR}/CEGA_HRSC_results.pkl" \
     --eval mAP \
     --cfg-options "${COMMON_CFG[@]}"

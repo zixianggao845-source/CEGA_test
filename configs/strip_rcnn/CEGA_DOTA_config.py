@@ -117,4 +117,4 @@ model = dict(
             max_per_img=2000)))
 
 evaluation = dict(metric='mAP')
-work_dir = './work_dirs/reproduce_CEGA_DOTA'
+work_dir = './work_dirs/CEGA_DOTA_test'

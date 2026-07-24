@@ -3,8 +3,8 @@
 # OrientedRCNN + ReTransformerResNet + ReFPN + StripHead + HRSC rotate aug.
 
 _base_ = [
-    '../../configs/oriented_rcnn/transformer_strip_oriented_rcnn_re50_refpn_3x_hrsc_le90.py'
+    '../../configs/oriented_rcnn/CEGA_HRSC_base_config.py'
 ]
 
-work_dir = 'work_dirs/reproduce_CEGA_hrsc'
+work_dir = 'work_dirs/CEGA_HRSC_test'
 auto_resume = False

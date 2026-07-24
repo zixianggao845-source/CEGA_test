@@ -1,21 +1,22 @@
-# CEGA_test
+# CEGA Test
 
-This repository publishes CEGA checkpoints, evaluation steps, and training
-steps for PETDet.
+This repository provides CEGA checkpoints and experiment instructions for
+PETDet. The repository contains checkpoint files, test helper scripts, and
+evaluation configs. Training code is described by the original PETDet config
+files listed below.
 
-## Files
+## 1. Environment
 
-- `work_dirs/CEGA_hrsc.pth`: HRSC2016 checkpoint, stored with Git LFS.
-- `work_dirs/strip_rcnn_s_fpn_1x_dota_le90/CEGA_DOTA.pth`: DOTA v1.0
-  checkpoint, stored with Git LFS.
-- `docs/reproduce_CEGA_hrsc.md`: HRSC2016 evaluation and training steps.
-- `docs/reproduce_CEGA_DOTA.md`: DOTA v1.0 evaluation and training steps.
-- `tools/reproduce_CEGA_hrsc.sh`: HRSC2016 evaluation script.
-- `tools/reproduce_CEGA_DOTA.sh`: DOTA v1.0 evaluation script.
-- `experiments/ablation/cega_hrsc_config.py`: HRSC2016 checkpoint config.
-- `configs/strip_rcnn/cega_dota_config.py`: DOTA v1.0 checkpoint config.
+Use a PETDet environment with the same core dependencies:
 
-## Usage
+```text
+python == 3.10
+torch == 1.13.1
+cuda == 11.7
+mmcv == 1.7.1
+mmdet == 2.28.2
+mmrotate == 0.3.2
+```
 
 Clone this repository with Git LFS enabled:
 
@@ -24,32 +25,97 @@ git lfs install
 git clone https://github.com/zixianggao845-source/CEGA_test.git
 ```
 
-Use these files inside a PETDet checkout. The commands expect to run from a
-PETDet-style repository that contains `tools/test.py`, `tools/train.py`,
-`mmrotate/`, and the base configs referenced by the HRSC config.
+Run the commands from a PETDet-style project root that contains `tools/test.py`,
+`tools/train.py`, `mmrotate/`, `configs/`, and `experiments/`.
 
-## Reproduce CEGA HRSC
+## 2. Test Experiments
 
-From the PETDet root:
+The test experiments load the released checkpoints and run evaluation or
+submission generation.
 
-```bash
-export HRSC_ROOT=/path/to/hrsc
-export CHECKPOINT="$PWD/work_dirs/CEGA_hrsc.pth"
-bash tools/reproduce_CEGA_hrsc.sh
-```
+| Dataset | Checkpoint | Test script | Config |
+|---|---|---|---|
+| HRSC2016 | `work_dirs/CEGA_HRSC.pth` | `tools/CEGA_HRSC_test.sh` | `experiments/ablation/CEGA_HRSC_config.py` |
+| DOTA v1.0 | `work_dirs/CEGA_DOTA/CEGA_DOTA.pth` | `tools/CEGA_DOTA_test.sh` | `configs/strip_rcnn/CEGA_DOTA_config.py` |
 
-The evaluation output is written to:
+### 2.1 HRSC2016 Test
+
+Expected HRSC2016 directory layout:
 
 ```text
-work_dirs/reproduce_CEGA_hrsc/
+HRSC_ROOT/
+  ImageSets/test.txt
+  FullDataSet/Annotations/
+  FullDataSet/AllImages/
 ```
 
-Train CEGA HRSC from the PETDet root:
+Run from the PETDet root:
 
 ```bash
 export HRSC_ROOT=/path/to/hrsc
-python tools/train.py experiments/ablation/cega_hrsc_config.py \
-  --work-dir work_dirs/train_CEGA_hrsc \
+export CHECKPOINT="$PWD/work_dirs/CEGA_HRSC.pth"
+bash tools/CEGA_HRSC_test.sh
+```
+
+The output is written to:
+
+```text
+work_dirs/CEGA_HRSC_test/
+```
+
+### 2.2 DOTA v1.0 Test
+
+Expected split DOTA directory layout:
+
+```text
+DOTA_ROOT/
+  trainval/
+    annfiles/
+    images/
+  test/
+    images/
+```
+
+Run validation mAP from the PETDet root:
+
+```bash
+export DOTA_ROOT=/path/to/split_1024_dota1_0
+export CHECKPOINT="$PWD/work_dirs/CEGA_DOTA/CEGA_DOTA.pth"
+bash tools/CEGA_DOTA_test.sh val
+```
+
+Generate DOTA Task1 submission files:
+
+```bash
+export DOTA_ROOT=/path/to/split_1024_dota1_0
+export CHECKPOINT="$PWD/work_dirs/CEGA_DOTA/CEGA_DOTA.pth"
+bash tools/CEGA_DOTA_test.sh submit
+```
+
+The output is written to:
+
+```text
+work_dirs/CEGA_DOTA_test/
+```
+
+## 3. Training Experiments
+
+The training experiments use the original PETDet config files. These config
+files are described here but are not duplicated as new code files in this
+repository.
+
+| Dataset | PETDet training config | Main setting |
+|---|---|---|
+| HRSC2016 | `PETDet/experiments/ablation/serial_rot_scale_aclrpn_striphead_hrsc.py` | CEGA parallel branch, ACL-RPN, StripHead, 72 epochs |
+| DOTA v1.0 | `PETDet/experiments/ablation/serial_rot_scale_aclrpn_striphead_dota.py` | CEGA parallel branch, ACL-RPN, StripHead, 12 epochs |
+
+### 3.1 HRSC2016 Training
+
+Run from the PETDet root:
+
+```bash
+export HRSC_ROOT=/path/to/hrsc
+python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_hrsc.py \
   --seed 3407 \
   --cfg-options \
     data.train.ann_file="$HRSC_ROOT/ImageSets/trainval.txt" \
@@ -66,59 +132,32 @@ python tools/train.py experiments/ablation/cega_hrsc_config.py \
     data.test.img_prefix="$HRSC_ROOT/FullDataSet/AllImages/"
 ```
 
-## Reproduce CEGA DOTA
+### 3.2 DOTA v1.0 Training
 
-From the PETDet root, run validation mAP:
-
-```bash
-export DOTA_ROOT=/path/to/split_1024_dota1_0
-export CHECKPOINT="$PWD/work_dirs/strip_rcnn_s_fpn_1x_dota_le90/CEGA_DOTA.pth"
-bash tools/reproduce_CEGA_DOTA.sh val
-```
-
-Generate DOTA Task1 submission files:
+Run from the PETDet root:
 
 ```bash
-export DOTA_ROOT=/path/to/split_1024_dota1_0
-export CHECKPOINT="$PWD/work_dirs/strip_rcnn_s_fpn_1x_dota_le90/CEGA_DOTA.pth"
-bash tools/reproduce_CEGA_DOTA.sh submit
-```
-
-The evaluation output is written to:
-
-```text
-work_dirs/reproduce_CEGA_DOTA/
-```
-
-Train CEGA DOTA from the PETDet root with the original PETDet DOTA training
-config:
-
-```bash
-export DOTA_ROOT=/path/to/split_1024_dota1_0
-python tools/train.py configs/strip_rcnn/strip_rcnn_s_fpn_1x_dota_le90.py \
-  --seed 1110166606 \
+export DOTA_ROOT=/path/to/dota_group_split_3407
+python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_dota.py \
+  --seed 332845056 \
   --cfg-options \
-    data.train.ann_file="$DOTA_ROOT/trainval/annfiles/" \
-    data.train.img_prefix="$DOTA_ROOT/trainval/images/" \
-    data.val.ann_file="$DOTA_ROOT/trainval/annfiles/" \
-    data.val.img_prefix="$DOTA_ROOT/trainval/images/" \
-    data.test.ann_file="$DOTA_ROOT/test/images/" \
-    data.test.img_prefix="$DOTA_ROOT/test/images/"
+    data.train.ann_file="$DOTA_ROOT/train/annfiles/" \
+    data.train.img_prefix="$DOTA_ROOT/train/images/" \
+    data.val.ann_file="$DOTA_ROOT/val/annfiles/" \
+    data.val.img_prefix="$DOTA_ROOT/val/images/" \
+    data.test.ann_file="$DOTA_ROOT/val/annfiles/" \
+    data.test.img_prefix="$DOTA_ROOT/val/images/"
 ```
 
-For details, see:
+## 4. Checkpoint Hashes
 
 ```text
-docs/reproduce_CEGA_hrsc.md
-docs/reproduce_CEGA_DOTA.md
-```
-
-Checkpoint SHA256 values:
-
-```text
-CEGA_hrsc.pth:
+CEGA_HRSC.pth:
 0007153d48024f15397f5d8836db62a06b31bdefaa23eaa3c70fee0d7eef4309
 
 CEGA_DOTA.pth:
 d0cb1bb9cc5f0d98d45baa285067f5300131b48dd14ab9a900eb0058cea5e0b6
 ```
+
+Do not upload HRSC2016 or DOTA images and annotations to this repository.
+Download the datasets separately and set `HRSC_ROOT` or `DOTA_ROOT` locally.
