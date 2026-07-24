@@ -16,42 +16,17 @@ mmdet == 2.28.2
 mmrotate == 0.3.2
 ```
 
-Expected HRSC2016 directory layout:
-
-```text
-HRSC_ROOT/
-  ImageSets/trainval.txt
-  ImageSets/test.txt
-  FullDataSet/Annotations/
-  FullDataSet/AllImages/
-```
+Set `HRSC_ROOT` to the HRSC2016 dataset root when running commands.
 
 ## 2. Test Experiment
 
-The HRSC2016 test experiment loads:
-
-```text
-work_dirs/CEGA_HRSC.pth
-```
-
-The test config in this repository is:
-
-```text
-experiments/ablation/CEGA_HRSC_config.py
-```
-
-Run from the PETDet root:
+The test experiment loads `work_dirs/CEGA_HRSC.pth` with
+`experiments/ablation/CEGA_HRSC_config.py`.
 
 ```bash
 export HRSC_ROOT=/path/to/hrsc
 export CHECKPOINT="$PWD/work_dirs/CEGA_HRSC.pth"
 bash tools/CEGA_HRSC_test.sh
-```
-
-The output is written to:
-
-```text
-work_dirs/CEGA_HRSC_test/
 ```
 
 The checkpoint metadata records:

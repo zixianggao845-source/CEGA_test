@@ -26,27 +26,12 @@ This project uses the following two datasets.
 
 ### 2.1 HRSC2016 Test
 
-Expected HRSC2016 directory layout:
-
-```text
-HRSC_ROOT/
-  ImageSets/test.txt
-  FullDataSet/Annotations/
-  FullDataSet/AllImages/
-```
-
-Run from the PETDet root:
+Set `HRSC_ROOT` to the HRSC2016 dataset root, then run:
 
 ```bash
 export HRSC_ROOT=/path/to/hrsc
 export CHECKPOINT="$PWD/work_dirs/CEGA_HRSC.pth"
 bash tools/CEGA_HRSC_test.sh
-```
-
-The output is written to:
-
-```text
-work_dirs/CEGA_HRSC_test/
 ```
 
 ### 2.2 DOTA v1.0 Test
