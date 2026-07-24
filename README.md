@@ -78,50 +78,31 @@ This project uses the following two datasets.
 | HRSC2016 | `PETDet/experiments/ablation/serial_rot_scale_aclrpn_striphead_hrsc.py` | CEGA parallel branch, ACL-RPN, StripHead, 72 epochs |
 | DOTA v1.0 | `PETDet/experiments/ablation/serial_rot_scale_aclrpn_striphead_dota.py` | CEGA parallel branch, ACL-RPN, StripHead, 12 epochs |
 
-HRSC2016:https://www.kaggle.com/datasets/guofeng/hrsc2016
+HRSC2016: https://www.kaggle.com/datasets/guofeng/hrsc2016
 
-DOTA v1.0:https://captain-whu.github.io/DOTA/dataset.html
+DOTA v1.0: https://captain-whu.github.io/DOTA/dataset.html
+
 ### 3.1 HRSC2016 Training
 
 Run from the PETDet root:
 
 ```bash
-export HRSC_ROOT=/path/to/hrsc
-python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_hrsc.py \
-  --seed 3407 \
-  --cfg-options \
-    data.train.ann_file="$HRSC_ROOT/ImageSets/trainval.txt" \
-    data.train.ann_subdir="$HRSC_ROOT/FullDataSet/Annotations/" \
-    data.train.img_subdir="$HRSC_ROOT/FullDataSet/AllImages/" \
-    data.train.img_prefix="$HRSC_ROOT/FullDataSet/AllImages/" \
-    data.val.ann_file="$HRSC_ROOT/ImageSets/test.txt" \
-    data.val.ann_subdir="$HRSC_ROOT/FullDataSet/Annotations/" \
-    data.val.img_subdir="$HRSC_ROOT/FullDataSet/AllImages/" \
-    data.val.img_prefix="$HRSC_ROOT/FullDataSet/AllImages/" \
-    data.test.ann_file="$HRSC_ROOT/ImageSets/test.txt" \
-    data.test.ann_subdir="$HRSC_ROOT/FullDataSet/Annotations/" \
-    data.test.img_subdir="$HRSC_ROOT/FullDataSet/AllImages/" \
-    data.test.img_prefix="$HRSC_ROOT/FullDataSet/AllImages/"
+python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_hrsc.py --seed 3407
 ```
+
+If your dataset path is different from the path in the config, update the config
+or override the data path with `--cfg-options`.
 
 ### 3.2 DOTA v1.0 Training
 
 Run from the PETDet root:
 
 ```bash
-export DOTA_ROOT=/path/to/dota_group_split_3407
-python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_dota.py \
-  --seed 332845056 \
-  --cfg-options \
-    data.train.ann_file="$DOTA_ROOT/train/annfiles/" \
-    data.train.img_prefix="$DOTA_ROOT/train/images/" \
-    data.val.ann_file="$DOTA_ROOT/val/annfiles/" \
-    data.val.img_prefix="$DOTA_ROOT/val/images/" \
-    data.test.ann_file="$DOTA_ROOT/val/annfiles/" \
-    data.test.img_prefix="$DOTA_ROOT/val/images/"
+python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_dota.py --seed 332845056
 ```
 
-
+If your dataset path is different from the path in the config, update the config
+or override the data path with `--cfg-options`.
 
 Do not upload HRSC2016 or DOTA images and annotations to this repository.
 Download the datasets separately and set `HRSC_ROOT` or `DOTA_ROOT` locally.

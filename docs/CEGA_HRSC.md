@@ -64,23 +64,11 @@ Main training settings:
 Run from the PETDet root:
 
 ```bash
-export HRSC_ROOT=/path/to/hrsc
-python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_hrsc.py \
-  --seed 3407 \
-  --cfg-options \
-    data.train.ann_file="$HRSC_ROOT/ImageSets/trainval.txt" \
-    data.train.ann_subdir="$HRSC_ROOT/FullDataSet/Annotations/" \
-    data.train.img_subdir="$HRSC_ROOT/FullDataSet/AllImages/" \
-    data.train.img_prefix="$HRSC_ROOT/FullDataSet/AllImages/" \
-    data.val.ann_file="$HRSC_ROOT/ImageSets/test.txt" \
-    data.val.ann_subdir="$HRSC_ROOT/FullDataSet/Annotations/" \
-    data.val.img_subdir="$HRSC_ROOT/FullDataSet/AllImages/" \
-    data.val.img_prefix="$HRSC_ROOT/FullDataSet/AllImages/" \
-    data.test.ann_file="$HRSC_ROOT/ImageSets/test.txt" \
-    data.test.ann_subdir="$HRSC_ROOT/FullDataSet/Annotations/" \
-    data.test.img_subdir="$HRSC_ROOT/FullDataSet/AllImages/" \
-    data.test.img_prefix="$HRSC_ROOT/FullDataSet/AllImages/"
+python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_hrsc.py --seed 3407
 ```
+
+If your dataset path is different from the path in the config, update the config
+or override the data path with `--cfg-options`.
 
 The PETDet config writes training output to:
 

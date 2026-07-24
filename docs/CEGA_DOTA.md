@@ -105,17 +105,11 @@ Main training settings:
 Run from the PETDet root:
 
 ```bash
-export DOTA_ROOT=/path/to/dota_group_split_3407
-python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_dota.py \
-  --seed 332845056 \
-  --cfg-options \
-    data.train.ann_file="$DOTA_ROOT/train/annfiles/" \
-    data.train.img_prefix="$DOTA_ROOT/train/images/" \
-    data.val.ann_file="$DOTA_ROOT/val/annfiles/" \
-    data.val.img_prefix="$DOTA_ROOT/val/images/" \
-    data.test.ann_file="$DOTA_ROOT/val/annfiles/" \
-    data.test.img_prefix="$DOTA_ROOT/val/images/"
+python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_dota.py --seed 332845056
 ```
+
+If your dataset path is different from the path in the config, update the config
+or override the data path with `--cfg-options`.
 
 The PETDet config writes training output to:
 
