@@ -87,9 +87,7 @@ work_dirs/CEGA_DOTA_test/
 
 ## 3. Training Experiments
 
-The training experiments use the original PETDet config files. These config
-files are described here but are not duplicated as new code files in this
-repository.
+This project uses the following two datasets.
 
 | Dataset | PETDet training config | Main setting |
 |---|---|---|
