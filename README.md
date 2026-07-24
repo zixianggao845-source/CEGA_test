@@ -17,8 +17,7 @@ mmrotate == 0.3.2
 
 ## 2. Test Experiments
 
-The test experiments load the released checkpoints and run evaluation or
-submission generation.
+This project uses the following two datasets.
 
 | Dataset | Checkpoint | Test script | Config | mAP |
 |---|---|---|---|---|
