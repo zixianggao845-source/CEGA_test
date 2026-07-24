@@ -1,9 +1,6 @@
 # CEGA Test
 
-This repository provides CEGA checkpoints and experiment instructions for
-PETDet. The repository contains checkpoint files, test helper scripts, and
-evaluation configs. Training code is described by the original PETDet config
-files listed below.
+This warehouse provides testing and training instructions for the project. The original PETDet configuration file description and training steps are listed below. At present, the project provides models and testing steps. The complete training experiment file is not yet included, and the training file will be added later.
 
 ## 1. Environment
 
