@@ -121,15 +121,7 @@ python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_dot
     data.test.img_prefix="$DOTA_ROOT/val/images/"
 ```
 
-## 4. Checkpoint Hashes
 
-```text
-CEGA_HRSC.pth:
-0007153d48024f15397f5d8836db62a06b31bdefaa23eaa3c70fee0d7eef4309
-
-CEGA_DOTA.pth:
-d0cb1bb9cc5f0d98d45baa285067f5300131b48dd14ab9a900eb0058cea5e0b6
-```
 
 Do not upload HRSC2016 or DOTA images and annotations to this repository.
 Download the datasets separately and set `HRSC_ROOT` or `DOTA_ROOT` locally.
