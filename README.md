@@ -21,7 +21,7 @@ This project uses the following two datasets.
 
 | Dataset | Checkpoint | Test script | Config | mAP |
 |---|---|---|---|---|
-| HRSC2016 | `work_dirs/CEGA_HRSC.pth` | `tools/CEGA_HRSC_test.sh` | `experiments/ablation/CEGA_HRSC_config.py` | `90.8%` |
+| HRSC2016 | `work_dirs/CEGA_HRSC.pth` | `tools/CEGA_HRSC_test.sh` | `experiments/ablation/CEGA_HRSC_config.py` | `90.80%` |
 | DOTA v1.0 | `work_dirs/CEGA_DOTA/CEGA_DOTA.pth` | `tools/CEGA_DOTA_test.sh` | `configs/strip_rcnn/CEGA_DOTA_config.py` | `87.85%` |
 
 ### 2.1 HRSC2016 Test
