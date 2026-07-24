@@ -60,5 +60,37 @@ The script writes output under:
 work_dirs/reproduce_CEGA_DOTA/
 ```
 
+## Train CEGA DOTA
+
+Training uses the original PETDet DOTA training config:
+
+```text
+configs/strip_rcnn/strip_rcnn_s_fpn_1x_dota_le90.py
+```
+
+From the PETDet root:
+
+```bash
+export DOTA_ROOT=/path/to/split_1024_dota1_0
+python tools/train.py configs/strip_rcnn/strip_rcnn_s_fpn_1x_dota_le90.py \
+  --seed 1110166606 \
+  --cfg-options \
+    data.train.ann_file="$DOTA_ROOT/trainval/annfiles/" \
+    data.train.img_prefix="$DOTA_ROOT/trainval/images/" \
+    data.val.ann_file="$DOTA_ROOT/trainval/annfiles/" \
+    data.val.img_prefix="$DOTA_ROOT/trainval/images/" \
+    data.test.ann_file="$DOTA_ROOT/test/images/" \
+    data.test.img_prefix="$DOTA_ROOT/test/images/"
+```
+
+The original DOTA config expects the StripNet-S pretrained weight at:
+
+```text
+pretrained/stripnet_s.pth
+```
+
+The training output is written to the work directory defined by the PETDet
+config unless `--work-dir` is supplied.
+
 Do not upload DOTA images or annotations to the repository. Users should
 download and split the dataset separately, then set `DOTA_ROOT` locally.

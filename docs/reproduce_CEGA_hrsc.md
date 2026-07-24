@@ -26,6 +26,7 @@ The HRSC directory must contain:
 
 ```text
 HRSC_ROOT/
+  ImageSets/trainval.txt
   ImageSets/test.txt
   FullDataSet/Annotations/
   FullDataSet/AllImages/
@@ -45,6 +46,36 @@ The script writes predictions and evaluation output under:
 
 ```text
 work_dirs/reproduce_CEGA_hrsc/
+```
+
+## Train CEGA HRSC
+
+From the PETDet root:
+
+```bash
+export HRSC_ROOT=/path/to/hrsc
+python tools/train.py experiments/ablation/cega_hrsc_config.py \
+  --work-dir work_dirs/train_CEGA_hrsc \
+  --seed 3407 \
+  --cfg-options \
+    data.train.ann_file="$HRSC_ROOT/ImageSets/trainval.txt" \
+    data.train.ann_subdir="$HRSC_ROOT/FullDataSet/Annotations/" \
+    data.train.img_subdir="$HRSC_ROOT/FullDataSet/AllImages/" \
+    data.train.img_prefix="$HRSC_ROOT/FullDataSet/AllImages/" \
+    data.val.ann_file="$HRSC_ROOT/ImageSets/test.txt" \
+    data.val.ann_subdir="$HRSC_ROOT/FullDataSet/Annotations/" \
+    data.val.img_subdir="$HRSC_ROOT/FullDataSet/AllImages/" \
+    data.val.img_prefix="$HRSC_ROOT/FullDataSet/AllImages/" \
+    data.test.ann_file="$HRSC_ROOT/ImageSets/test.txt" \
+    data.test.ann_subdir="$HRSC_ROOT/FullDataSet/Annotations/" \
+    data.test.img_subdir="$HRSC_ROOT/FullDataSet/AllImages/" \
+    data.test.img_prefix="$HRSC_ROOT/FullDataSet/AllImages/"
+```
+
+The training output is written to:
+
+```text
+work_dirs/train_CEGA_hrsc/
 ```
 
 Do not upload the HRSC images or annotations to the repository. Users should
