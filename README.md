@@ -78,6 +78,8 @@ This project uses the following two datasets.
 | HRSC2016 | `PETDet/experiments/ablation/serial_rot_scale_aclrpn_striphead_hrsc.py` | CEGA parallel branch, ACL-RPN, StripHead, 72 epochs |
 | DOTA v1.0 | `PETDet/experiments/ablation/serial_rot_scale_aclrpn_striphead_dota.py` | CEGA parallel branch, ACL-RPN, StripHead, 12 epochs |
 
+HRSC2016:https://www.kaggle.com/datasets/guofeng/hrsc2016
+DOTAv1.0:https://captain-whu.github.io/DOTA/dataset.html
 ### 3.1 HRSC2016 Training
 
 Run from the PETDet root:
