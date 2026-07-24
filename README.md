@@ -104,5 +104,3 @@ python tools/train.py experiments/ablation/serial_rot_scale_aclrpn_striphead_dot
 If your dataset path is different from the path in the config, update the config
 or override the data path with `--cfg-options`.
 
-Do not upload HRSC2016 or DOTA images and annotations to this repository.
-Download the datasets separately and set `HRSC_ROOT` or `DOTA_ROOT` locally.
