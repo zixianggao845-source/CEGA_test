@@ -1,7 +1,6 @@
 # CEGA Test
 
 This warehouse provides testing and training instructions for the project. The original PETDet configuration file description and training steps are listed below. At present, the project provides models and testing steps. The complete training experiment file is not yet included, and the training file will be added later.
-
 ## 1. Environment
 
 Use a PETDet environment with the same core dependencies:
@@ -21,10 +20,10 @@ mmrotate == 0.3.2
 The test experiments load the released checkpoints and run evaluation or
 submission generation.
 
-| Dataset | Checkpoint | Test script | Config |
-|---|---|---|---|
-| HRSC2016 | `work_dirs/CEGA_HRSC.pth` | `tools/CEGA_HRSC_test.sh` | `experiments/ablation/CEGA_HRSC_config.py` |
-| DOTA v1.0 | `work_dirs/CEGA_DOTA/CEGA_DOTA.pth` | `tools/CEGA_DOTA_test.sh` | `configs/strip_rcnn/CEGA_DOTA_config.py` |
+| Dataset | Checkpoint | Test script | Config | mAP |
+|---|---|---|---|---|
+| HRSC2016 | `work_dirs/CEGA_HRSC.pth` | `tools/CEGA_HRSC_test.sh` | `experiments/ablation/CEGA_HRSC_config.py` | `90.8%` |
+| DOTA v1.0 | `work_dirs/CEGA_DOTA/CEGA_DOTA.pth` | `tools/CEGA_DOTA_test.sh` | `configs/strip_rcnn/CEGA_DOTA_config.py` | `87.85%` |
 
 ### 2.1 HRSC2016 Test
 
